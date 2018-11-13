@@ -1,0 +1,24 @@
+{
+  "name": "y",
+  "version": "0.1.0",
+  "description": "Gatsby plugin to handle elm files",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/wking-io/gatsby-plugin-elm.git"
+  },
+  "keywords": [
+    "elm",
+    "gatsby",
+    "gatsby-plugin"
+  ],
+  "author": "Will King <contact@wking.io> (https://www.wking.io/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wking-io/gatsby-plugin-elm/issues"
+  },
+  "homepage": "https://github.com/wking-io/gatsby-plugin-elm#readme"
+}

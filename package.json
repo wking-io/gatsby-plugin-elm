@@ -3,9 +3,15 @@
   "version": "0.1.0",
   "description": "Gatsby plugin to handle elm files",
   "main": "index.js",
+  "files": [
+    "./gatsby-node.js",
+    "LICENSE.md",
+    "index.js"
+  ],
   "scripts": {
     "build": "babel src --out-dir . --ignore **/__tests__",
     "prepare": "cross-env NODE_ENV=production npm run build",
+    "prepublish": "npm run prepare",
     "watch": "babel -w src --out-dir . --ignore **/__tests__",
     "format": "standard --fix && standard"
   },

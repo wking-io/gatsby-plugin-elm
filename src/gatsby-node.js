@@ -1,60 +1,33 @@
-import resolve from './resolve'
-
 exports.onCreateWebpackConfig = (
-  { actions, stage, rules, plugins, loaders },
-  { cssLoaderOptions = {}, postCssPlugins, ...sassOptions }
+  { actions, stage },
+  { plugins, ...elmOptions }
 ) => {
-  const { setWebpackConfig } = actions
-  const PRODUCTION = stage !== `develop`
-  const isSSR = stage.includes(`html`)
+  const { setWebpackConfig } = actions;
+  const isDev = stage === `develop`;
 
-  const sassLoader = {
-    loader: resolve(`sass-loader`),
+  const elmLoader = {
+    loader: require.resolve('elm-webpack-loader'),
     options: {
-      sourceMap: !PRODUCTION,
-      ...sassOptions
-    }
-  }
+      debug: isDev,
+      forceWatch: !isDev,
+      optimize: !isDev,
+      ...elmOptions,
+    },
+  };
 
-  const sassRule = {
-    test: /\.s(a|c)ss$/,
-    use: isSSR
-      ? [loaders.null()]
-      : [
-        loaders.miniCssExtract(),
-        loaders.css({ ...cssLoaderOptions, importLoaders: 2 }),
-        loaders.postcss({ plugins: postCssPlugins }),
-        sassLoader
-      ]
-  }
-  const sassRuleModules = {
-    test: /\.module\.s(a|c)ss$/,
-    use: [
-      !isSSR && loaders.miniCssExtract(),
-      loaders.css({ ...cssLoaderOptions, modules: true, importLoaders: 2 }),
-      loaders.postcss({ plugins: postCssPlugins }),
-      sassLoader
-    ].filter(Boolean)
-  }
+  const elmHotLoader = {
+    loader: require.resolve('elm-hot-webpack-loader'),
+  };
 
-  let configRules = []
-
-  switch (stage) {
-    case `develop`:
-    case `build-javascript`:
-    case `build-html`:
-    case `develop-html`:
-      configRules = configRules.concat([
-        {
-          oneOf: [sassRuleModules, sassRule]
-        }
-      ])
-      break
-  }
+  const elmRule = isDev => ({
+    test: /\.elm$/,
+    exclude: [/[/\\\\]elm-stuff[/\\\\]/, /[/\\\\]node_modules[/\\\\]/],
+    use: [...(isDev ? [elmHotLoader] : []), elmLoader],
+  });
 
   setWebpackConfig({
     module: {
-      rules: configRules
-    }
-  })
-}
+      rules: [elmRule(isDev)],
+    },
+  });
+};

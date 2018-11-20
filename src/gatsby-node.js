@@ -9,7 +9,7 @@ exports.onCreateWebpackConfig = (
     loader: require.resolve('elm-webpack-loader'),
     options: {
       debug: isDev,
-      forceWatch: !isDev,
+      forceWatch: isDev,
       optimize: !isDev,
       ...elmOptions
     }

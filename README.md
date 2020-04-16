@@ -23,7 +23,7 @@ for all available options.
 // in gatsby-config.js
 plugins: [
   {
-    resolve: `gatsby-plugin-sass`,
+    resolve: `gatsby-plugin-elm`,
     options: {
       forceWatch: true,
     },

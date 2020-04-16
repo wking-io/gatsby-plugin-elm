@@ -9,7 +9,7 @@ Provides compiler support for Elm in gatsby.
 ## How to use
 
 1.  Include the plugin in your `gatsby-config.js` file.
-2.  Write your Elm files as normal and import the Main file as seen in this [example](https://github.com/elm-community/elm-webpack-loader/blob/master/example-wp4/src/index.js).
+2.  Write your Elm files as normal and import the Main file as seen in this [example](https://github.com/elm-community/elm-webpack-loader/blob/master/example/src/index.js).
 
 ```javascript
 // in gatsby-config.js
